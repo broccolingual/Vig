@@ -1,0 +1,20 @@
+[package]
+name = "vig"
+version = "0.1.0"
+edition = "2024"
+authors = ["Broccolingual"]
+description = "Vig - VHDL testbench generator"
+repository = "https://github.com/broccolingual/vig"
+license = "MIT"
+keywords = ["vhdl", "testbench", "generator", "hdl", "hardware"]
+categories = ["command-line-utilities", "development-tools"]
+
+[lib]
+name = "vig"
+path = "src/lib.rs"
+
+[[bin]]
+name = "vig"
+path = "src/main.rs"
+
+[dependencies]
