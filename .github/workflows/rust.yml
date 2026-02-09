@@ -26,9 +26,6 @@ jobs:
           target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-    - name: Install GCC
-      run: sudo apt-get update && sudo apt-get install -y gcc
-
     - name: Build
       run: cargo build --verbose
 
