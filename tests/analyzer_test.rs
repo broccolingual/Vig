@@ -109,8 +109,8 @@ fn test_multiple_entities() {
 }
 
 #[test]
-fn test_case_insensitivity() {
+fn test_case_preservation() {
     let source = "ENTITY MyEnt IS\nEND ENTITY MyEnt;";
     let result = analyze_vhdl(source).unwrap();
-    assert_eq!(result.entities[0].name, "myent");
+    assert_eq!(result.entities[0].name, "MyEnt");
 }

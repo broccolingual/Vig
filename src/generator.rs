@@ -95,20 +95,23 @@ fn type_default_value(vhdl_type: &VhdlType) -> String {
     }
 }
 
-/// clk を含むポートを探す
+/// clk を含むポートを探す（大文字小文字を区別しない）
 fn find_clock_port(ports: &[PortDef]) -> Option<String> {
+    let lower_contains = |name: &str, pat: &str| name.to_lowercase().contains(pat);
     ports
         .iter()
-        .find(|p| p.direction == PortDirection::In && p.name.contains("clk"))
+        .find(|p| p.direction == PortDirection::In && lower_contains(&p.name, "clk"))
         .map(|p| p.name.clone())
 }
 
-/// reset を含むポートを探す
+/// reset を含むポートを探す（大文字小文字を区別しない）
 fn find_reset_port(ports: &[PortDef]) -> Option<String> {
+    let lower_contains = |name: &str, pat: &str| name.to_lowercase().contains(pat);
     ports
         .iter()
         .find(|p| {
-            p.direction == PortDirection::In && (p.name.contains("rst") || p.name.contains("reset"))
+            p.direction == PortDirection::In
+                && (lower_contains(&p.name, "rst") || lower_contains(&p.name, "reset"))
         })
         .map(|p| p.name.clone())
 }

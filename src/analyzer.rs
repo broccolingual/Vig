@@ -216,7 +216,7 @@ impl Analyzer {
     fn parse_entity(&mut self) -> Result<EntityDef, AnalyzeError> {
         let start = self.current().span;
         self.expect(TokenKind::Entity)?;
-        let name = self.expect(TokenKind::Identifier)?.text.to_lowercase();
+        let name = self.expect(TokenKind::Identifier)?.text;
         self.expect(TokenKind::Is)?;
 
         let mut ports = Vec::new();
@@ -257,9 +257,9 @@ impl Analyzer {
         let span = self.current().span;
         let mut names = Vec::new();
 
-        names.push(self.expect(TokenKind::Identifier)?.text.to_lowercase());
+        names.push(self.expect(TokenKind::Identifier)?.text);
         while self.eat(TokenKind::Comma) {
-            names.push(self.expect(TokenKind::Identifier)?.text.to_lowercase());
+            names.push(self.expect(TokenKind::Identifier)?.text);
         }
 
         self.expect(TokenKind::Colon)?;
@@ -340,7 +340,7 @@ impl Analyzer {
             }
             TokenKind::Identifier => {
                 self.advance();
-                Ok(VhdlType::Other(token.text.to_lowercase()))
+                Ok(VhdlType::Other(token.text))
             }
             _ => Err(AnalyzeError::new(
                 format!("expected type, found '{}'", token.text),
@@ -354,9 +354,9 @@ impl Analyzer {
     fn parse_architecture(&mut self) -> Result<ArchitectureDef, AnalyzeError> {
         let start = self.current().span;
         self.expect(TokenKind::Architecture)?;
-        let arch_name = self.expect(TokenKind::Identifier)?.text.to_lowercase();
+        let arch_name = self.expect(TokenKind::Identifier)?.text;
         self.expect(TokenKind::Of)?;
-        let entity_name = self.expect(TokenKind::Identifier)?.text.to_lowercase();
+        let entity_name = self.expect(TokenKind::Identifier)?.text;
         self.expect(TokenKind::Is)?;
 
         let mut signals = Vec::new();
@@ -399,7 +399,7 @@ impl Analyzer {
     fn parse_signal_decl(&mut self) -> Result<SignalDef, AnalyzeError> {
         let start = self.current().span;
         self.expect(TokenKind::Signal)?;
-        let name = self.expect(TokenKind::Identifier)?.text.to_lowercase();
+        let name = self.expect(TokenKind::Identifier)?.text;
         self.expect(TokenKind::Colon)?;
         let vhdl_type = self.parse_type()?;
 
